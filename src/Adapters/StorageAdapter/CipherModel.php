@@ -18,7 +18,7 @@ class CipherModel
         return $this->id;
     }
 
-    public function setId($id): self
+    public function setId(int $id): self
     {
         $this->id = $id;
         return $this;
@@ -29,7 +29,7 @@ class CipherModel
         return $this->cipher;
     }
 
-    public function setCipher($cipher): self
+    public function setCipher(string $cipher): self
     {
         $this->cipher = $cipher;
         return $this;
@@ -40,7 +40,7 @@ class CipherModel
         return $this->notes;
     }
 
-    public function setNotes($notes): self
+    public function setNotes(string $notes): self
     {
         $this->notes = $notes;
         return $this;
