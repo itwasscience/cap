@@ -1,6 +1,6 @@
 <?php
 
-namespace Cap\UseCases\DecodeMessageUseCase;
+namespace Cap\UseCases\EncodeMessageUseCase;
 
 interface EncodeMessageInterface
 {
