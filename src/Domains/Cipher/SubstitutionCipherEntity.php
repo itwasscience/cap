@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cap\Domains;
+namespace Cap\Domains\CipherEntity;
 
-class SubstitutionCipherEntity
+class SubstitutionCipherEntity implements CipherImplementation
 {
     const ENGLISH_ALPHABET_LENGTH = 26;
     const ENGLISH_ALPHABET_ARRAY = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -52,7 +52,7 @@ class SubstitutionCipherEntity
         return array_combine($cipherCharacterArray, self::ENGLISH_ALPHABET_ARRAY);
     }
 
-    protected function validateCipherString($cipherString) : void {
+    protected function validateCipherString(string $cipherString) : void {
         if (self::ENGLISH_ALPHABET_LENGTH !== mb_strlen($cipherString)) {
             throw new \InvalidArgumentException("Cipher input string must contain exactly 26 unicode characters.");
         }

@@ -1,15 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: zoey
- * Date: 10/21/18
- * Time: 5:33 PM
- */
+
+declare(strict_types=1);
 
 use Cap\Adapters\StorageAdapter\CipherModel;
 use PHPUnit\Framework\TestCase;
 
-class CipherModelTest extends TestCase
+final class CipherModelTest extends TestCase
 {
 
     public function testGetAndSetId_whenValidData_expectEquals()
