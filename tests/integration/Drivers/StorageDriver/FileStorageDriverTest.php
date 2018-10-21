@@ -11,7 +11,7 @@ class FileStorageDriverTest extends TestCase
     {
         $filename = "/tmp/cipher.csv";
         $data = "103,ABCDEFGHIJKLMNOPQRSTUVWXYZ,Test Notes\n104,foo,foo";
-        $this->createTestFile($filename, $data);
+        $this->createTestFileWithData($filename, $data);
 
         $storageDriver = new FileStorageDriver($filename);
         $cipherModel = $storageDriver->findCipherById(103);
@@ -21,14 +21,25 @@ class FileStorageDriverTest extends TestCase
         $this->assertEquals("Test Notes", $cipherModel->getNotes());
     }
 
+    public function testFindCipherById_whenFileIsPresetButDataIsNotFound_thenExpectException() {
+        $this->expectException(\Exception::class);
+
+        $filename = "/tmp/cipher.csv";
+        $data = "103,ABCDEFGHIJKLMNOPQRSTUVWXYZ,Test Notes\n104,foo,foo";
+        $this->createTestFileWithData($filename, $data);
+
+        $storageDriver = new FileStorageDriver($filename);
+        $storageDriver->findCipherById(9999); // Should throw Exception
+    }
+
     public function testFindCipherById_whenFileDoesNotExist_thenExpectException() {
         $this->expectException(\Exception::class);
 
         $storageDriver = new FileStorageDriver("/tmp/foo/some/file/that/is/not/here");
-        $cipherModel = $storageDriver->findCipherById(103); // Throw Exception
+        $cipherModel = $storageDriver->findCipherById(103); // Should throw Exception
     }
 
-    protected function createTestFile(string $filename, string $data) : void {
+    protected function createTestFileWithData(string $filename, string $data) : void {
         $handle = fopen($filename, 'w') or die('Cannot open file: ' . $filename);
         fwrite($handle, $data);
         fclose($handle);
