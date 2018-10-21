@@ -7,23 +7,23 @@ use Cap\Domains\SubstitutionCipherEntity;
 
 final class SubstitutionCipherEntityTest extends TestCase
 {
-    public function testSubstitute_givenValidArgumentsWithAsciiInput_thenExpectedResult() {
+    public function testEncode_givenValidArgumentsWithAsciiInput_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
-        $result = $cipher->substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
+        $result = $cipher->encode("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
 
         $this->assertEquals("ZYXWVUTSRQPONMLKJIHGFEDCBA", $result);
     }
 
-    public function testSubstitute_givenValidArgumentsWithWhitespace_thenExpectedResult() {
+    public function testEncode_givenValidArgumentsWithWhitespace_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
-        $result = $cipher->substitute("The quick brown fox jumps over the lazy dog", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
+        $result = $cipher->encode("The quick brown fox jumps over the lazy dog", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
 
         $this->assertEquals("GSV JFRXP YILDM ULC QFNKH LEVI GSV OZAB WLT", $result);
     }
 
-    public function testSubstitute_givenValidArgumentsWithUnicode_thenExpectedResult() {
+    public function testEncode_givenValidArgumentsWithUnicode_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
-        $result = $cipher->substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀");
+        $result = $cipher->encode("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀");
 
         $this->assertEquals("恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀", $result);
     }
@@ -31,11 +31,41 @@ final class SubstitutionCipherEntityTest extends TestCase
     /**
      * The cipher string must be exactly 26 unicode graphemes in length.
      */
-    public function testSubstitute_givenInvalidCipherString_thenException() {
-        $this->expectException(InvalidArgumentException::class);
+    public function testEncode_givenInvalidCipherString_thenException() {
+        $this->expectException(\InvalidArgumentException::class);
 
         $cipher = new SubstitutionCipherEntity();
-        $cipher->substitute("Test String", "ZYXWVUTSRQPON"); // 13 replacements defined - Exception!
+        $cipher->encode("Test String", "ZYXWVUTSRQPONV"); // 13 replacements defined - Exception!
     }
 
+    public function testDecode_givenValidArgumentsWithAsciiInput_thenExpectedResult() {
+        $cipher = new SubstitutionCipherEntity();
+        $result = $cipher->decode("ZYXWVUTSRQPONMLKJIHGFEDCBA", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
+
+        $this->assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", $result);
+    }
+
+    public function testDecode_givenValidArgumentsWithWhitespace_thenExpectedResult() {
+        $cipher = new SubstitutionCipherEntity();
+        $result = $cipher->decode("GSV JFRXP YILDM ULC QFNKH LEVI GSV OZAB WLT", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
+
+        $this->assertEquals("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG", $result);
+    }
+
+    public function testDecode_givenValidArgumentsWithUnicode_thenExpectedResult() {
+        $cipher = new SubstitutionCipherEntity();
+        $result = $cipher->decode("恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀", "恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀");
+
+        $this->assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", $result);
+    }
+
+    /**
+     * The cipher string must be exactly 26 unicode graphemes in length.
+     */
+    public function testDecode_givenInvalidCipherString_thenException() {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $cipher = new SubstitutionCipherEntity();
+        $cipher->decode("Test String", "ZYXWVUTSRQPONV"); // 13 replacements defined - Exception!
+    }
 }
