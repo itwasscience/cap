@@ -7,21 +7,21 @@ use Cap\Domains\SubstitutionCipherEntity;
 
 final class SubstitutionCipherEntityTest extends TestCase
 {
-    public function substitute_givenValidArgumentsWithAsciiInput_thenExpectedResult() {
+    public function testSubstitute_givenValidArgumentsWithAsciiInput_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
         $result = $cipher->substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
 
         $this->assertEquals("ZYXWVUTSRQPONMLKJIHGFEDCBA", $result);
     }
 
-    public function substitute_givenValidArgumentsWithWhitespace_thenExpectedResult() {
+    public function testSubstitute_givenValidArgumentsWithWhitespace_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
         $result = $cipher->substitute("The quick brown fox jumps over the lazy dog", "ZYXWVUTSRQPONMLKJIHGFEDCBA");
 
         $this->assertEquals("GSV JFRXP YILDM ULC QFNKH LEVI GSV OZAB WLT", $result);
     }
 
-    public function substitute_givenValidArgumentsWithUnicode_thenExpectedResult() {
+    public function testSubstitute_givenValidArgumentsWithUnicode_thenExpectedResult() {
         $cipher = new SubstitutionCipherEntity();
         $result = $cipher->substitute("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "恩嫻圀僥鰯狹忰勁摎朴亥模馭稀誣賎堅懺伍网渣閤畏撮請汀");
 
@@ -31,7 +31,7 @@ final class SubstitutionCipherEntityTest extends TestCase
     /**
      * The cipher string must be exactly 26 unicode graphemes in length.
      */
-    public function substitute_givenInvalidCipherString_thenException() {
+    public function testSubstitute_givenInvalidCipherString_thenException() {
         $this->expectException(InvalidArgumentException::class);
 
         $cipher = new SubstitutionCipherEntity();
