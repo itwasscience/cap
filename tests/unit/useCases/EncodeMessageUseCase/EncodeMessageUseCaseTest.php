@@ -11,12 +11,13 @@ final class EncodeMessageUseCaseTest extends TestCase
 {
     public function testEncode_givenValidEncodeMessage_thenExpectedResult() {
         $mockSubstitutionCipher = $this->buildSubstitutionMockClass();
+        $storageAdapterMock = $this->buildSubstitutionMockClass();
 
         $encodeMessage = new EncodeMessage();
         $encodeMessage->setCipherRequest(103);
         $encodeMessage->setPlaintext("This is some string to encode");
 
-        $encodeMessageUseCase = new EncodeMessageUseCase();
+        $encodeMessageUseCase = new EncodeMessageUseCase($mockSubstitutionCipher, $storageAdapterMock);
         $resultMessage = $encodeMessageUseCase->encode($encodeMessage);
 
         $this->assertEquals("MOCK RESULT ENCODE", $resultMessage->getCiphertext());
