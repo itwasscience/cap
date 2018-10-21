@@ -59,6 +59,6 @@ class SubstitutionCipherEntity
     }
 
     protected function splitUnicodeString($inputString) : array {
-        return preg_split('//u', $inputString, null, PREG_SPLIT_NO_EMPTY);
+        return preg_split('//u', $inputString, -1, PREG_SPLIT_NO_EMPTY);
     }
 }

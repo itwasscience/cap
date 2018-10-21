@@ -11,30 +11,36 @@ final class EncodeMessageUseCaseTest extends TestCase
 {
     public function testEncode_givenValidEncodeMessage_thenExpectedResult() {
         $mockSubstitutionCipher = $this->buildSubstitutionMockClass();
-        $storageAdapterMock = $this->buildSubstitutionMockClass();
+        $storageAdapterMock = $this->buildStorageAdapterMock();
 
         $encodeMessage = new EncodeMessage();
-        $encodeMessage->setCipherRequest(103);
+        $encodeMessage->setCipherId(103);
         $encodeMessage->setPlaintext("This is some string to encode");
 
-        $encodeMessageUseCase = new EncodeMessageUseCase($mockSubstitutionCipher, $storageAdapterMock);
+        $encodeMessageUseCase = new EncodeMessageUseCase($storageAdapterMock, $mockSubstitutionCipher);
         $resultMessage = $encodeMessageUseCase->encode($encodeMessage);
 
         $this->assertEquals("MOCK RESULT ENCODE", $resultMessage->getCiphertext());
     }
 
     protected function buildStorageAdapterMock(): MockObject {
-        $storageAdapter = $this->getMockBuilder('Cap\Adapter\StorageAdapter')
+        $storageAdapter = $this->getMockBuilder('Cap\Adapters\StorageAdapter\StorageAdapterInterface')
             ->disableOriginalConstructor()
+            ->setMethods(array('findCipherbyId'))
             ->getMock();
-        $storageAdapter->method('findById')->willReturn('');
+
+        $cipherResult = new \Cap\Adapters\StorageAdapter\CipherModel();
+        $cipherResult->setId(103);
+        $cipherResult->setCipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+        $cipherResult->setNotes("Mock CipherModel Result");
+
+        $storageAdapter->method('findCipherById')->willReturn($cipherResult);
 
         return $storageAdapter;
     }
 
     protected function buildSubstitutionMockClass() : MockObject {
-        $substitutionCipher = $this->getMockBuilder('Cap\Domains\SubstitutionCipherEntity')
-            ->getMock();
+        $substitutionCipher = $this->getMockBuilder('Cap\Domains\SubstitutionCipherEntity')->getMock();
         $substitutionCipher->method('encode')->willReturn("MOCK RESULT ENCODE");
         $substitutionCipher->method('decode')->willReturn("MOCK RESULT DECODE");
 
