@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cap\Domains\CipherEntity;
+namespace Cap\Domains\Cipher;
 
 class SubstitutionCipherEntity implements CipherImplementation
 {

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use Cap\Domains\CipherEntity\SubstitutionCipherEntity;
+use Cap\Domains\Cipher\SubstitutionCipherEntity;
 
 final class SubstitutionCipherEntityTest extends TestCase
 {

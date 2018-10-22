@@ -6,13 +6,14 @@ namespace Cap\UseCases\EncodeMessageUseCase;
 
 use Cap\Adapters\StorageAdapter\CipherModel;
 use Cap\Adapters\StorageAdapter\StorageAdapterInterface;
+use Cap\Domains\Cipher\CipherImplementation;
 
 class EncodeMessageUseCase implements EncodeMessageInterface
 {
     protected $storageAdapter;
     protected $cipherEntity;
 
-    public function __construct(StorageAdapterInterface $storageAdapter, $cipherEntity)
+    public function __construct(StorageAdapterInterface $storageAdapter, CipherImplementation $cipherEntity)
     {
         $this->storageAdapter = $storageAdapter;
         $this->cipherEntity = $cipherEntity;

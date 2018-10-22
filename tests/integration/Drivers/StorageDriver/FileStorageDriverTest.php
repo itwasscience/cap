@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use Cap\Adapters\StorageAdapter\CipherModel;
+use Cap\Drivers\StorageDriver\FileStorageDriver;
 
 class FileStorageDriverTest extends TestCase
 {

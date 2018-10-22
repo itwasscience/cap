@@ -40,7 +40,7 @@ final class EncodeMessageUseCaseTest extends TestCase
     }
 
     protected function buildSubstitutionMockClass() : MockObject {
-        $substitutionCipher = $this->getMockBuilder('Cap\Domains\CipherEntity\SubstitutionCipherEntity')->getMock();
+        $substitutionCipher = $this->getMockBuilder('Cap\Domains\Cipher\SubstitutionCipherEntity')->getMock();
         $substitutionCipher->method('encode')->willReturn("MOCK RESULT ENCODE");
         $substitutionCipher->method('decode')->willReturn("MOCK RESULT DECODE");
 

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Cap\Drivers\StorageDriver;
+
 use Cap\Adapters\StorageAdapter\StorageAdapterInterface;
 use Cap\Adapters\StorageAdapter\CipherModel;
 
