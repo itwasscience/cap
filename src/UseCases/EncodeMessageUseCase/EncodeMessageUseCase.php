@@ -14,7 +14,7 @@ class EncodeMessageUseCase implements EncodeMessageInterface
         $this->storageAdapter = $storageAdapter;
     }
 
-    public function encode(EncodeMessage $encodeMessage): EncodeMessage
+    public function encode(EncodeMessageInput $encodeMessage): EncodeMessageInput
     {
         $cipher = $this->storageAdapter->findCipherById($encodeMessage->getCipherId());
 

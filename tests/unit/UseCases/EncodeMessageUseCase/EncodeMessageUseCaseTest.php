@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Cap\Domains\Cipher\SubstitutionCipherEntity;
 use Cap\UseCases\EncodeMessageUseCase\EncodeMessageUseCase;
-use Cap\UseCases\EncodeMessageUseCase\EncodeMessage;
+use Cap\UseCases\EncodeMessageUseCase\EncodeMessageInput;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +13,7 @@ final class EncodeMessageUseCaseTest extends TestCase
     public function testEncode_givenValidEncodeMessage_thenExpectedResult() {
         $storageAdapterMock = $this->buildStorageAdapterMock();
 
-        $encodeMessage = new EncodeMessage();
+        $encodeMessage = new EncodeMessageInput();
         $encodeMessage->setCipherId(103);
         $encodeMessage->setPlaintext("This is some string to encode");
 

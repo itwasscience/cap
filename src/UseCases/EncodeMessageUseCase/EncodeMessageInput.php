@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Cap\UseCases\EncodeMessageUseCase;
 
-class EncodeMessage
+class EncodeMessageInput
 {
     protected $plainText;
-    protected $cipherText;
     protected $cipherId;
 
     public function getPlainText(): string
@@ -18,17 +17,6 @@ class EncodeMessage
     public function setPlainText(string $plainText): self
     {
         $this->plainText = $plainText;
-        return $this;
-    }
-
-    public function getCipherText(): string
-    {
-        return $this->cipherText;
-    }
-
-    public function setCipherText(string $cipherText): self
-    {
-        $this->cipherText = $cipherText;
         return $this;
     }
 
