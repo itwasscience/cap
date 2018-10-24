@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Cap\Drivers\StorageDriver;
 
-use Cap\Adapters\StorageAdapter\StorageAdapterInterface;
-use Cap\Adapters\StorageAdapter\CipherModel;
+use Cap\Domains\Cipher\SubstitutionCipherEntity;
+use Cap\UseCases\EncodeMessageUseCase\CipherModel;
+use Cap\UseCases\EncodeMessageUseCase\EncodeMessageStorageInterface;
 
-class FileStorageDriver implements StorageAdapterInterface
+class FileStorageDriver implements EncodeMessageStorageInterface
 {
     const CSV_FIELDS = array("id", "cipher", "notes");
 
@@ -19,7 +20,7 @@ class FileStorageDriver implements StorageAdapterInterface
         $this->filename = $filename;
     }
 
-    public function findCipherById(int $id): CipherModel
+    public function findCipherById(int $id): SubstitutionCipherEntity
     {
         $data = $this->loadDiskData();
         if ( !isset($data[$id])) {
@@ -42,11 +43,9 @@ class FileStorageDriver implements StorageAdapterInterface
         return $csvData;
     }
 
-    protected function hydrateCipherModelFromCsvRow(array $csvRow) : CipherModel {
-        $cipherModel = new CipherModel();
-        $cipherModel->setId((int)$csvRow[0]);
-        $cipherModel->setCipher($csvRow[1]);
-        $cipherModel->setNotes($csvRow[2]);
+    protected function hydrateCipherModelFromCsvRow(array $csvRow) : SubstitutionCipherEntity {
+        $cipherModel = new SubstitutionCipherEntity();
+        $cipherModel->setCipher((string)$csvRow[1]);
 
         return $cipherModel;
     }

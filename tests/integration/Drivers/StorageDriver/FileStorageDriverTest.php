@@ -17,9 +17,7 @@ class FileStorageDriverTest extends TestCase
         $storageDriver = new FileStorageDriver($filename);
         $cipherModel = $storageDriver->findCipherById(103);
 
-        $this->assertEquals(103, $cipherModel->getId());
         $this->assertEquals("ABCDEFGHIJKLMNOPQRSTUVWXYZ", $cipherModel->getCipher());
-        $this->assertEquals("Test Notes", $cipherModel->getNotes());
     }
 
     public function testFindCipherById_whenFileIsPresetButDataIsNotFound_thenExpectException() {
@@ -37,7 +35,7 @@ class FileStorageDriverTest extends TestCase
         $this->expectException(\Exception::class);
 
         $storageDriver = new FileStorageDriver("/tmp/foo/some/file/that/is/not/here");
-        $cipherModel = $storageDriver->findCipherById(103); // Should throw Exception
+        $storageDriver->findCipherById(103); // Should throw Exception
     }
 
     protected function createTestFileWithData(string $filename, string $data) : void {
