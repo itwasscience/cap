@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace Cap\Drivers\StorageDriver;
 
-use Cap\Domains\Cipher\SubstitutionCipherEntity;
-use Cap\UseCases\EncodeMessageUseCase\CipherModel;
-use Cap\UseCases\EncodeMessageUseCase\EncodeMessageStorageInterface;
+use Cap\Adapters\CipherStorageAdapterInterface;
+use Cap\Adapters\CipherModel;
 
-class FileStorageDriver implements EncodeMessageStorageInterface
+class FileStorageDriver implements CipherStorageAdapterInterface
 {
-    const CSV_FIELDS = array("id", "cipher", "notes");
+    const CSV_FIELDS = array("id" => 0, "cipher" => 1, "notes" => 2);
 
     protected $filename = '';
     protected $csvData = array();
@@ -20,7 +19,7 @@ class FileStorageDriver implements EncodeMessageStorageInterface
         $this->filename = $filename;
     }
 
-    public function findCipherById(int $id): SubstitutionCipherEntity
+    public function findCipherById(int $id): CipherModel
     {
         $data = $this->loadDiskData();
         if ( !isset($data[$id])) {
@@ -43,9 +42,16 @@ class FileStorageDriver implements EncodeMessageStorageInterface
         return $csvData;
     }
 
-    protected function hydrateCipherModelFromCsvRow(array $csvRow) : SubstitutionCipherEntity {
-        $cipherModel = new SubstitutionCipherEntity();
-        $cipherModel->setCipher((string)$csvRow[1]);
+    protected function hydrateCipherModelFromCsvRow(array $csvRow) : CipherModel
+    {
+        $id = (int)$csvRow[self::CSV_FIELDS['id']];
+        $cipher = (string)$csvRow[self::CSV_FIELDS['cipher']];
+        $notes = (string)$csvRow[self::CSV_FIELDS['notes']];
+
+        $cipherModel = new CipherModel();
+        $cipherModel->setId($id);
+        $cipherModel->setCipher($cipher);
+        $cipherModel->setNotes($notes);
 
         return $cipherModel;
     }
