@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Cap\UseCases\EncodeMessageUseCase;
 
-use Cap\Adapters\CipherStorageAdapterInterface;
-
 class EncodeMessageUseCase implements EncodeMessageInterface
 {
     protected $storageAdapter;
     protected $cipherEntity;
 
-    public function __construct(CipherStorageAdapterInterface $storageAdapter)
+    public function __construct(EncodeMessageStorageInterface $storageAdapter)
     {
         $this->storageAdapter = $storageAdapter;
     }

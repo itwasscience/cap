@@ -24,7 +24,7 @@ final class EncodeMessageUseCaseTest extends TestCase
     }
 
     protected function buildStorageAdapterMock(): MockObject {
-        $storageAdapter = $this->getMockBuilder('Cap\Adapters\CipherStorageAdapterInterface')
+        $storageAdapter = $this->getMockBuilder('Cap\UseCases\EncodeMessageUseCase\EncodeMessageStorageInterface')
             ->disableOriginalConstructor()
             ->setMethods(array('findCipherById'))
             ->getMock();
