@@ -38,7 +38,7 @@ The `Adapters` layer then requires at least `(2 * UseCase)` classes. The first c
 is the `UseCaseStorageAdapter` that implements the `UseCaseStorageInterface`. This class
 converts second class, the `Model` DTO, to something suitable for consumption by the `UseCase`. 
 
-There is also `(1 * UseCase)` interface that must be implemented bby the `FileStorageDriver` 
+There is also `(1 * UseCase)` interface that must be implemented by the `FileStorageDriver` 
 to populate the `Model` DTO from whatever infrastructure data store there is.
 
 | UseCases |  Class Count | Interface Count | Total Files |
