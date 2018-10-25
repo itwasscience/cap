@@ -19,7 +19,7 @@ and get things going.
 
 ![Architecture Image][arch-image]
 
-[arch-image]: https://raw.githubusercontent.com/itwasscience/cap/master/CAP-Architecture.svg "Architecture Image"
+[arch-image]: https://user-images.githubusercontent.com/26612459/47468122-9ac70c80-d7c7-11e8-936e-504d70fe33ae.png "Architecture Image"
 
 # Cipher Data Format
 
